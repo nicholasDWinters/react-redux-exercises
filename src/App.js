@@ -1,23 +1,47 @@
-import logo from './logo.svg';
 import './App.css';
+import React from 'react';
+import MemeForm from './MemeForm';
+import Meme from './Meme';
+import TodoForm from './TodoForm';
+import Todo from './Todo';
+import { useSelector, useDispatch } from 'react-redux';
+import { v4 as uuid } from 'uuid';
+
 
 function App() {
+  // let todos = useSelector(store => store.todos);
+  let memes = useSelector(store => store.memes);
+  let dispatch = useDispatch();
+
+  // const addTodo = (todo) => {
+  //   dispatch({ type: 'ADD', payload: { ...todo, id: uuid() } });
+  //   console.log(todos);
+  // }
+
+  // const deleteTodo = (id) => {
+  //   dispatch({ type: 'DELETE', payload: id });
+  //   console.log(id);
+  // }
+  const addMeme = (meme) => {
+    dispatch({ type: 'ADD', payload: { ...meme, id: uuid() } });
+
+  }
+
+  const deleteMeme = (id) => {
+    dispatch({ type: 'DELETE', payload: id });
+
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+      {/* <TodoForm addTodo={addTodo} />
+      {todos.map(todo =>
+        <Todo key={todo.id} deleteTodo={deleteTodo} todo={todo.todo} id={todo.id} />)} */}
+      <MemeForm addMeme={addMeme} />
+      {memes.map(meme =>
+        <Meme key={meme.id} deleteMeme={deleteMeme} top={meme.top} bottom={meme.bottom} url={meme.url} id={meme.id} />
+      )}
     </div>
   );
 }
